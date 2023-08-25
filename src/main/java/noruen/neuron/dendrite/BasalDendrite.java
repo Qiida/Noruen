@@ -1,6 +1,7 @@
 package noruen.neuron.dendrite;
 
 import noruen.neuron.Neuron;
+import noruen.space.Cell;
 
 public class BasalDendrite extends Dendrite{
     public BasalDendrite(Neuron neuron) {
@@ -10,8 +11,8 @@ public class BasalDendrite extends Dendrite{
 
     @Override
     void grow() {
-//        target = layer.getRandomNeuron();
+        Neuron neuron = (Neuron) body.get(0);
+        Cell neighbour = neuron.layer.getRandomNeighbourOfCell(neuron);
+        body.add(neighbour);
     }
-
-
 }

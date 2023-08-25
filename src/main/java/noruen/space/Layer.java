@@ -1,59 +1,86 @@
 package noruen.space;
 
+import noruen.neuron.CellType;
 import noruen.neuron.Neuron;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Random;
 
-public class Layer {
+public class Layer extends Space{
 
     public Random random;
-    public final Space[][][] space;
 
-    private float targetActivationLevel;
+    private final float targetActivationLevel;
 
 
     public Layer(int xDim, int yDim, int zDim) {
+        super(xDim, yDim, zDim);
         random = new Random();
-        space = buildSpace(xDim, yDim, zDim);
         targetActivationLevel = 0.02f;
+        populateWithNeurons();
     }
 
-    public Layer(long seed, int xDim, int yDim, int zDim) {
+    public Layer(int xDim, int yDim, int zDim, long seed) {
+        super(xDim, yDim, zDim);
         random = new Random(seed);
-        space = buildSpace(xDim, yDim, zDim);
         targetActivationLevel = 0.02f;
+        populateWithNeurons();
     }
 
     public Layer(int xDim, int yDim, int zDim, float targetActivationLevel) {
+        super(xDim, yDim, zDim);
         random = new Random();
-        space = buildSpace(xDim, yDim, zDim);
         this.targetActivationLevel = targetActivationLevel;
+        populateWithNeurons();
     }
 
-    public Layer(long seed, int xDim, int yDim, int zDim, float targetActivationLevel) {
+    public Layer(int xDim, int yDim, int zDim, long seed, float targetActivationLevel) {
+        super(xDim, yDim, zDim);
         random = new Random(seed);
-        space = buildSpace(xDim, yDim, zDim);
         this.targetActivationLevel = targetActivationLevel;
-    }
-
-    private Space[][][] buildSpace(int xDim, int yDim, int zDim) {
-        final Space[][][] space = new Space[xDim][yDim][zDim];
-
-        for (int x=0; x<space.length; x++) {
-            for (int y=0; y<space[x].length; y++) {
-                for (int z=0; z<space[x][y].length; z++) {
-                    space[x][y][z] = new Space(x, y, z);
-                }
-            }
-        }
-        return space;
+        populateWithNeurons();
     }
 
     private void populateWithNeurons() {
+        for (int x=0; x<dimX; x++) {
+            for (int y=0; y<dimY; y++) {
+                for (int z=0; z<dimZ; z++) {
+                    cells[x][y][z].addCell(CellType.Neuron, new Neuron(this, x, y, z));
+                }
+            }
+        }
+    }
 
+    public Cell getRandomNeighbourOfCell(Cell cell) {
+        int[] targetCoordinates = getRandomCoordinates(cell);
+        while (!isValidTarget(cell, targetCoordinates)) {
+            targetCoordinates = getRandomCoordinates(cell);
+        }
+        return getCellFromCoordinates(targetCoordinates);
+    }
+
+    private Cell getCellFromCoordinates(int[] coordinates) {
+        return cells[coordinates[0]][coordinates[1]][coordinates[2]];
+    }
+
+    private boolean isValidTarget(Cell self, int[] targetCoordinates) {
+        return targetCoordinates[0] >= 0 & targetCoordinates[0] < dimX &&
+               targetCoordinates[1] >= 0 & targetCoordinates[1] < dimY &&
+               targetCoordinates[2] >= 0 & targetCoordinates[2] < dimZ &&
+               targetCoordinates[0] != self.x &&
+               targetCoordinates[1] != self.y &&
+               targetCoordinates[2] != self.z;
+    }
+
+    private int[] getRandomCoordinates(Cell self) {
+        int[] coordinates = new int[3];
+        int stepToX = random.nextInt(0, 1);
+        int stepToY = random.nextInt(0, 1);
+        int stepToZ = random.nextInt(0, 1);
+
+        coordinates[0] = self.x + stepToX;
+        coordinates[1] = self.y + stepToY;
+        coordinates[2] = self.z + stepToZ;
+        return coordinates;
     }
 
 //    public int getTotalEnergy() {

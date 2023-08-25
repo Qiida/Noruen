@@ -1,9 +1,9 @@
 package noruen.neuron;
 
 import noruen.neuron.dendrite.Dendrite;
-import noruen.space.Element;
+import noruen.space.Cell;
 
-public class Synapse extends Element {
+public class Synapse extends Cell {
     public float growth;
     public Dendrite from;
     public Dendrite to;

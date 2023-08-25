@@ -1,22 +1,32 @@
 package noruen.space;
 
-import java.util.ArrayList;
 
 public class Space {
-    public final int x;
-    public final int y;
-    public final int z;
+    public final int dimX;
+    public final int dimY;
+    public final int dimZ;
 
-    public ArrayList<Element> elements = new ArrayList<>();
+    public final Cell[][][] cells;
 
-    public Space(int x, int y, int z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
+    public Space(int dimX, int dimY, int dimZ) {
+        this.dimX = dimX;
+        this.dimY = dimY;
+        this.dimZ = dimZ;
+
+        cells = buildCells(dimX, dimY, dimZ);
     }
 
-    public void addElement(Element element) {
-        elements.add(element);
+    private Cell[][][] buildCells(int dimX, int dimY, int dimZ) {
+        final Cell[][][] cells = new Cell[dimX][dimY][dimZ];
+
+        for (int x=0; x<dimX; x++) {
+            for (int y=0; y<dimY; y++) {
+                for (int z=0; z<dimZ; z++) {
+                    cells[x][y][z] = new Cell(x, y, z);
+                }
+            }
+        }
+        return cells;
     }
 
 }
