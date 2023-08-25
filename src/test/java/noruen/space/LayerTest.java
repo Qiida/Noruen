@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LayerTest {
 
@@ -16,14 +17,21 @@ public class LayerTest {
     @Test
     public void getTotalEnergyTest() {
         Layer layer = new Layer(10, 1, 4);
-//        int energy = layer.getTotalEnergy();
+        int energy = layer.getTotalEnergy();
         System.out.println("Hello");
     }
 
     @Test
     public void getNumberOfNeuronsTest() {
         Layer layer = new Layer(10, 1, 4);
-//        Assertions.assertEquals(40, layer.getNumberOfNeurons());
+        Assertions.assertEquals(40, layer.getNumberOfNeurons());
+    }
+
+    @Test
+    public void getListOfNeuronsTest() {
+        Layer layer = new Layer(10, 1, 4);
+        List<Neuron> neuronList = layer.getListOfNeurons();
+        Assertions.assertEquals(40, layer.getNumberOfNeurons());
     }
 
     @Test

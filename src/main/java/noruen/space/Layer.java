@@ -3,6 +3,8 @@ package noruen.space;
 import noruen.neuron.CellType;
 import noruen.neuron.Neuron;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class Layer extends Space{
@@ -44,7 +46,7 @@ public class Layer extends Space{
         for (int x=0; x<dimX; x++) {
             for (int y=0; y<dimY; y++) {
                 for (int z=0; z<dimZ; z++) {
-                    cells[x][y][z].addCell(CellType.Neuron, new Neuron(this, x, y, z));
+                    cells[x][y][z].addCell(CellType.Neuron, new Neuron(this, cells[x][y][z]));
                 }
             }
         }
@@ -83,42 +85,36 @@ public class Layer extends Space{
         return coordinates;
     }
 
-//    public int getTotalEnergy() {
-//        int totalEnergy = 0;
-//        for (Neuron[][] neuron2DArray : space) {
-//            for (Neuron[] neurons : neuron2DArray) {
-//                for (Neuron neuron : neurons) {
-//                    totalEnergy += neuron.energy;
-//                }
-//            }
-//        }
-//        return totalEnergy;
-//    }
+    public int getTotalEnergy() {
+        int totalEnergy = 0;
+        for (int x=0; x<dimX; x++) {
+            for (int y=0; y<dimY; y++) {
+                for (int z=0; z<dimZ; z++) {
+                    totalEnergy += cells[x][y][z].getNeuron().energy;
+                }
+            }
+        }
+        return totalEnergy;
+    }
 
-//    public int getNumberOfNeurons() {
-//        int numberOfNeurons = 0;
-//        for (Neuron[][] neuron2DArray : space) {
-//            for (Neuron[] neurons : neuron2DArray) {
-//                for (int z = 0; z < neurons.length; z++) {
-//                    numberOfNeurons++;
-//                }
-//            }
-//        }
-//        return numberOfNeurons;
-//    }
-//
-//    public ArrayList<Neuron> getListOfNeurons() {
-//        ArrayList<Neuron> listOfNeurons = new ArrayList<>();
-//        for (Neuron[][] neuron2DArray : space) {
-//            for (Neuron[] neurons : neuron2DArray) {
-//                Collections.addAll(listOfNeurons, neurons);
-//            }
-//        }
-//        return listOfNeurons;
-//    }
+    public int getNumberOfNeurons() {
+        return dimX * dimY * dimZ;
+    }
+
+    public ArrayList<Neuron> getListOfNeurons() {
+        ArrayList<Neuron> listOfNeurons = new ArrayList<>();
+        for (int x=0; x<dimX; x++) {
+            for (int y=0; y<dimY; y++) {
+                for (int z=0; z<dimZ; z++) {
+                    listOfNeurons.add(cells[x][y][z].getNeuron());
+                }
+            }
+        }
+        return listOfNeurons;
+    }
 
 //    public ArrayList<Neuron> getListOfSortedNeurons() {
-//        ArrayList<Neuron> listOfNeurons = getListOfNeurons();
+//        List<Neuron> listOfNeurons = getListOfNeurons();
 //        listOfNeurons.sort(Comparator.comparing(Neuron::getEnergy));
 //        Collections.reverse(listOfNeurons);
 //        return listOfNeurons;

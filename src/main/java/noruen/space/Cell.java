@@ -42,4 +42,9 @@ public class Cell {
         cells.put(key, dendrite);
     }
 
+    public Neuron getNeuron() {
+        String key = "Neuron_" + x + "_" + y + "_" + z;
+        return (Neuron) cells.get(key);
+    }
+
 }

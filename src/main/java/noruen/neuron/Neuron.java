@@ -17,17 +17,20 @@ public class Neuron extends Cell {
     public int energy;
 
     public Layer layer;
+    public Cell cell;
 
 
-    public Neuron(Layer layer, int x, int y, int z) {
-        super(x, y, z);
+    public Neuron(Layer layer, Cell cell) {
+        super(cell.x, cell.y, cell.z);
         this.layer = layer;
+        this.cell = cell;
         energy = layer.random.nextInt(100);
     }
 
-    public Neuron(Layer layer, int x, int y, int z, int energy) {
-        super(x, y, z);
+    public Neuron(Layer layer, Cell cell, int energy) {
+        super(cell.x, cell.y, cell.z);
         this.layer = layer;
+        this.cell = cell;
         this.energy = energy;
     }
 
