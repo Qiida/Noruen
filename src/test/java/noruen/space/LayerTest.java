@@ -37,39 +37,23 @@ public class LayerTest {
     @Test
     public void getListOfSortedNeuronsTest() {
         Layer layer = new Layer(10, 1, 4);
-//        ArrayList<Neuron> sortedNeurons = layer.getListOfSortedNeurons();
+        ArrayList<Neuron> sortedNeurons = layer.getListOfSortedNeurons();
 
-//        Neuron bigger = null;
-//        for (int i=0; i<sortedNeurons.size(); i++) {
-//            if (i != 0) {
-//                Assertions.assertTrue(bigger.energy >= sortedNeurons.get(i).energy);
-//            }
-//            bigger = sortedNeurons.get(i);
-//        }
+        Neuron bigger = null;
+        for (int i=0; i<sortedNeurons.size(); i++) {
+            if (i != 0) {
+                Assertions.assertTrue(bigger.energy >= sortedNeurons.get(i).energy);
+            }
+            bigger = sortedNeurons.get(i);
+        }
 
     }
 
     @Test
     public void getFiringNeurons() {
-        Layer layer = new Layer(0,10, 1, 4, 0.3f);
-//        ArrayList<Neuron> firingNeurons = layer.getFiringNeurons();
-//        Assertions.assertEquals(12, firingNeurons.size());
+        Layer layer = new Layer(4,10, 1, 4, 0.3f);
+        ArrayList<Neuron> firingNeurons = layer.getFiringNeurons();
+        Assertions.assertEquals(12, firingNeurons.size());
     }
 
-    @Test
-    public void getRandomNeuronTest() {
-        Layer layer = new Layer(0,10, 1, 4, 0.3f);
-//        Neuron neuron = layer.getRandomNeuron();
-//        Assertions.assertEquals(48, neuron.energy);
-    }
-
-    @Test
-    public void fireNeuronsAndEstablishBasalConnectionsTest() {
-        Layer layer = new Layer(0,10, 1, 4, 0.3f);
-//        ArrayList<Neuron> firingNeurons = layer.getFiringNeurons();
-//        for (Neuron neuron : firingNeurons) {
-//            neuron.fire();
-//        }
-//        System.out.print("Hey");
-    }
 }

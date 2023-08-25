@@ -5,6 +5,7 @@ import noruen.neuron.Neuron;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
 
 public class Layer extends Space{
@@ -12,6 +13,15 @@ public class Layer extends Space{
     public Random random;
 
     private final float targetActivationLevel;
+
+    private boolean verbose;
+    public void setVerbose(boolean verbose) {
+        this.verbose = verbose;
+    }
+
+    public boolean isVerbose() {
+        return verbose;
+    }
 
 
     public Layer(int xDim, int yDim, int zDim) {
@@ -54,10 +64,18 @@ public class Layer extends Space{
 
     public Cell getRandomNeighbourOfCell(Cell cell) {
         int[] targetCoordinates = getRandomCoordinates(cell);
-        while (!isValidTarget(cell, targetCoordinates)) {
-            targetCoordinates = getRandomCoordinates(cell);
+        if (!isValidTarget(cell, targetCoordinates)) {
+            while (!isValidTarget(cell, targetCoordinates)) {
+                targetCoordinates = getRandomCoordinates(cell);
+            }
         }
-        return getCellFromCoordinates(targetCoordinates);
+
+        if (verbose) System.out.printf("\n\nCell: x = %d\n      y = %d\n      z = %d\n\n", cell.x, cell.y, cell.z);
+
+        if (isValidTarget(cell, targetCoordinates)) {
+            return getCellFromCoordinates(targetCoordinates);
+        }
+        return null;
     }
 
     private Cell getCellFromCoordinates(int[] coordinates) {
@@ -65,19 +83,33 @@ public class Layer extends Space{
     }
 
     private boolean isValidTarget(Cell self, int[] targetCoordinates) {
+        return isWithinBorder(targetCoordinates) &&
+                atLeastOneChanged(self, targetCoordinates);
+    }
+
+    private boolean atLeastOneChanged(Cell self, int[] targetCoordinates) {
+        return targetCoordinates[0] != self.x ||
+                targetCoordinates[1] != self.y ||
+                targetCoordinates[2] != self.z;
+    }
+
+    private boolean isSmallerThan100(int[] targetCoordinates) {
+        return targetCoordinates[0] != 100 &&
+                targetCoordinates[1] != 100 &&
+                targetCoordinates[2] != 100;
+    }
+
+    private boolean isWithinBorder(int[] targetCoordinates) {
         return targetCoordinates[0] >= 0 & targetCoordinates[0] < dimX &&
-               targetCoordinates[1] >= 0 & targetCoordinates[1] < dimY &&
-               targetCoordinates[2] >= 0 & targetCoordinates[2] < dimZ &&
-               targetCoordinates[0] != self.x &&
-               targetCoordinates[1] != self.y &&
-               targetCoordinates[2] != self.z;
+                targetCoordinates[1] >= 0 & targetCoordinates[1] < dimY &&
+                targetCoordinates[2] >= 0 & targetCoordinates[2] < dimZ;
     }
 
     private int[] getRandomCoordinates(Cell self) {
         int[] coordinates = new int[3];
-        int stepToX = random.nextInt(0, 1);
-        int stepToY = random.nextInt(0, 1);
-        int stepToZ = random.nextInt(0, 1);
+        int stepToX = random.nextInt(-1, 2);
+        int stepToY = random.nextInt(-1, 2);
+        int stepToZ = random.nextInt(-1, 2);
 
         coordinates[0] = self.x + stepToX;
         coordinates[1] = self.y + stepToY;
@@ -113,35 +145,22 @@ public class Layer extends Space{
         return listOfNeurons;
     }
 
-//    public ArrayList<Neuron> getListOfSortedNeurons() {
-//        List<Neuron> listOfNeurons = getListOfNeurons();
-//        listOfNeurons.sort(Comparator.comparing(Neuron::getEnergy));
-//        Collections.reverse(listOfNeurons);
-//        return listOfNeurons;
-//    }
+    public ArrayList<Neuron> getListOfSortedNeurons() {
+        ArrayList<Neuron> listOfNeurons = getListOfNeurons();
+        listOfNeurons.sort(Comparator.comparing(Neuron::getEnergy));
+        Collections.reverse(listOfNeurons);
+        return listOfNeurons;
+    }
 
-//    public ArrayList<Neuron> getFiringNeurons() {
-//        ArrayList<Neuron> firing = new ArrayList<>();
-//        ArrayList<Neuron> sorted = getListOfSortedNeurons();
-//        int numberOfFiringNeurons = (int) (this.targetActivationLevel * getNumberOfNeurons());
-//
-//        while (firing.size() < numberOfFiringNeurons) {
-//            firing.add(sorted.remove(0));
-//        }
-//
-//        return firing;
-//    }
-
-//    public Neuron getRandomNeuron() {
-//        int x = random.nextInt(space.length);
-//        int y = random.nextInt(space[0].length);
-//        int z = random.nextInt(space[0][0].length);
-//        return space[x][y][z];
-//    }
-
-
-
-
+    public ArrayList<Neuron> getFiringNeurons() {
+        ArrayList<Neuron> firing = new ArrayList<>();
+        ArrayList<Neuron> sorted = getListOfSortedNeurons();
+        int numberOfFiringNeurons = (int) (this.targetActivationLevel * getNumberOfNeurons());
+        while (firing.size() < numberOfFiringNeurons) {
+            firing.add(sorted.remove(0));
+        }
+        return firing;
+    }
 
 }
 

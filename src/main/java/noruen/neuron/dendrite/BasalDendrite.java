@@ -11,7 +11,6 @@ public class BasalDendrite extends Dendrite {
 
     @Override
     void grow() {
-        Neuron neuron = (Neuron) body.get(0);
         Cell neighbour = neuron.layer.getRandomNeighbourOfCell(neuron);
         body.add(neighbour);
     }

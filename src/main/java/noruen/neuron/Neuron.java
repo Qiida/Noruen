@@ -3,16 +3,13 @@ package noruen.neuron;
 import noruen.space.Cell;
 import noruen.space.Layer;
 import noruen.neuron.dendrite.BasalDendrite;
-import noruen.neuron.dendrite.ProximalDendrite;
-import noruen.neuron.dendrite.ApicalDendrite;
+
 
 import java.util.ArrayList;
 
 public class Neuron extends Cell {
 
     public final ArrayList<BasalDendrite> basalDendrites = new ArrayList<>();
-    public final ArrayList<ProximalDendrite> proximalDendrites = new ArrayList<>();
-    public final ArrayList<ApicalDendrite> apicalDendrites = new ArrayList<>();
 
     public int energy;
 
@@ -36,7 +33,9 @@ public class Neuron extends Cell {
 
     public void fire() {
         energy--;
-        growBasalDendrite();
+        if (basalDendrites.isEmpty()) {
+            growBasalDendrite();
+        }
     }
 
 
@@ -44,13 +43,6 @@ public class Neuron extends Cell {
         basalDendrites.add(new BasalDendrite(this));
     }
 
-    public void growProximalDendrites() {
-        proximalDendrites.add(new ProximalDendrite(this));
-    }
-
-    public void growApicalDendrites() {
-        apicalDendrites.add(new ApicalDendrite(this));
-    }
 
     public int getEnergy() {
         return energy;
