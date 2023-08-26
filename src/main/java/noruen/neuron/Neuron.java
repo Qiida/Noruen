@@ -35,7 +35,7 @@ public class Neuron extends Cell {
 
     public void fire() {
         energy--;
-        energy++;
+//        energy++;
         if (basalDendrites.isEmpty()) {
             growBasalDendrite();
         } else {

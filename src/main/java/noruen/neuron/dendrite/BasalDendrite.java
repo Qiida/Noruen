@@ -17,10 +17,6 @@ public class BasalDendrite extends Dendrite {
 
     @Override
     public void grow() {
-        // TODO: implement a way to allow dendrites to grow stronger into a lateral a direction.
-        if (Objects.equals(neuron.id, "Neuron_28_0_0")) {
-            System.out.println("Here");
-        }
 
         Cell neighbour;
 

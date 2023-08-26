@@ -19,33 +19,38 @@ public class Main {
         int numberOfNeurons = layer.getNumberOfNeurons();
         System.out.printf("The layer contains " + numberOfNeurons + " neurons.");
 
-        int numberOfIterations = 1000;
+        int numberOfIterations = 407;
         for (int i=0; i<numberOfIterations; i++) {
-            System.out.println("Generation " + i);
+            if (i==406) {
+                System.out.println("Stop!");
+            }
+            System.out.println(i);
             ArrayList<Neuron> firingNeurons = layer.getFiringNeurons();
             for (Neuron neuron : firingNeurons) {
-                printDendriteGrowth(neuron, "Neuron_28_0_0");
+                // bug at neuron number 7 or 8
                 neuron.fire();
             }
 
         }
 
+        for (Neuron neuron : layer.getListOfNeurons()) {
+            System.out.println(neuron.id + "\n");
+            printDendriteGrowth(neuron);
+        }
+
         System.out.println("The End.");
 
+
     }
 
-    private static void printDendriteGrowth(Neuron neuron, String id) {
-        if (Objects.equals(neuron.id, id)) {
-            for (BasalDendrite basalDendrite : neuron.basalDendrites) {
-                for (Cell cell : basalDendrite.body.list()) {
-                    int[] direction = basalDendrite.body.direction;
-                    if (direction != null) System.out.printf("[%d][%d][%d]", direction[0], direction[1], direction[2]);
-                    System.out.println(cell.id);
-                }
-
+    private static void printDendriteGrowth(Neuron neuron) {
+        for (BasalDendrite basalDendrite : neuron.basalDendrites) {
+            for (Cell cell : basalDendrite.body.list()) {
+                int[] direction = basalDendrite.body.direction;
+                if (direction != null) System.out.printf("[%d][%d][%d]", direction[0], direction[1], direction[2]);
+                System.out.println(cell.id);
             }
-
         }
     }
-
 }
+
