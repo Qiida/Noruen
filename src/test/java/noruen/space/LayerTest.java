@@ -56,4 +56,14 @@ public class LayerTest {
         Assertions.assertEquals(12, firingNeurons.size());
     }
 
+    @Test
+    public void getTargetCoordinatesInDirectionTest() {
+        Layer layer = new Layer(4,10, 1, 4, 0.3f);
+        Cell cell = layer.cells[0][0][0].getNeuron();
+        int[] direction = {-1, 1, 1};
+
+        Cell neighbour = layer.getNeighbourCellInDirection(direction, cell);
+
+    }
+
 }

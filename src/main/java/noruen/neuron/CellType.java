@@ -1,5 +1,5 @@
 package noruen.neuron;
 
 public enum CellType {
-    Neuron, ApicalDendrite, BasalDendrite, ProximalDendrite
+    NEURON, APICAL_DENDRITE, BASAL_DENDRITE, PROXIMAL_DENDRITE
 }

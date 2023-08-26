@@ -19,11 +19,6 @@ public class Layer extends Space{
         this.verbose = verbose;
     }
 
-    public boolean isVerbose() {
-        return verbose;
-    }
-
-
     public Layer(int xDim, int yDim, int zDim) {
         super(xDim, yDim, zDim);
         random = new Random();
@@ -56,8 +51,46 @@ public class Layer extends Space{
         for (int x=0; x<dimX; x++) {
             for (int y=0; y<dimY; y++) {
                 for (int z=0; z<dimZ; z++) {
-                    cells[x][y][z].addCell(CellType.Neuron, new Neuron(this, cells[x][y][z]));
+                    cells[x][y][z].addCell(CellType.NEURON, new Neuron(this, cells[x][y][z]));
                 }
+            }
+        }
+    }
+
+    public Cell getNeighbourCellInDirection(int[] direction, Cell cell) {
+        int[] targetCoordinates = getTargetCoordinatesInDirection(direction, cell);
+        if (!isWithinBorder(targetCoordinates)) {
+            checkDirectionAndFix(direction, cell);
+            targetCoordinates = getTargetCoordinatesInDirection(direction, cell);
+        }
+        return getCellFromCoordinates(targetCoordinates);
+    }
+
+    private static int[] getTargetCoordinatesInDirection(int[] direction, Cell cell) {
+        int[] targetCoordinates = new int[3];
+        targetCoordinates[0] = cell.x + direction[0];
+        targetCoordinates[1] = cell.y + direction[1];
+        targetCoordinates[2] = cell.z + direction[2];
+        return targetCoordinates;
+    }
+
+    private void checkDirectionAndFix(int[] direction, Cell cell) {
+        if ((cell.x == 0 && direction[0] == -1) || (cell.x == dimX-1 && direction[0] == 1)) {
+            direction[0] *= -1;
+            if (dimX == 1) {
+                direction[0] = 0;
+            }
+        }
+        if ((cell.y == 0 && direction[1] == -1) || (cell.y == dimY-1 && direction[1] == 1)) {
+            direction[1] *= -1;
+            if (dimY == 1) {
+                direction[1] = 0;
+            }
+        }
+        if ((cell.z == 0 && direction[2] == -1) || (cell.z == dimZ-1 && direction[2] == 1)) {
+            direction[2] *= -1;
+            if (dimZ == 1) {
+                direction[2] = 0;
             }
         }
     }
@@ -93,11 +126,6 @@ public class Layer extends Space{
                 targetCoordinates[2] != self.z;
     }
 
-    private boolean isSmallerThan100(int[] targetCoordinates) {
-        return targetCoordinates[0] != 100 &&
-                targetCoordinates[1] != 100 &&
-                targetCoordinates[2] != 100;
-    }
 
     private boolean isWithinBorder(int[] targetCoordinates) {
         return targetCoordinates[0] >= 0 & targetCoordinates[0] < dimX &&
@@ -107,9 +135,9 @@ public class Layer extends Space{
 
     private int[] getRandomCoordinates(Cell self) {
         int[] coordinates = new int[3];
-        int stepToX = random.nextInt(-1, 2);
-        int stepToY = random.nextInt(-1, 2);
-        int stepToZ = random.nextInt(-1, 2);
+        int stepToX = random.nextInt(-1, 1);
+        int stepToY = random.nextInt(-1, 1);
+        int stepToZ = random.nextInt(-1, 1);
 
         coordinates[0] = self.x + stepToX;
         coordinates[1] = self.y + stepToY;

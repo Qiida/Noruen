@@ -19,6 +19,7 @@ public class Neuron extends Cell {
 
     public Neuron(Layer layer, Cell cell) {
         super(cell.x, cell.y, cell.z);
+        this.id = String.format("Neuron_%d_%d_%d", this.x, this.y, this.z);
         this.layer = layer;
         this.cell = cell;
         energy = layer.random.nextInt(100);
@@ -26,6 +27,7 @@ public class Neuron extends Cell {
 
     public Neuron(Layer layer, Cell cell, int energy) {
         super(cell.x, cell.y, cell.z);
+        this.id = String.format("Neuron_%d_%d_%d", this.x, this.y, this.z);
         this.layer = layer;
         this.cell = cell;
         this.energy = energy;
@@ -33,14 +35,19 @@ public class Neuron extends Cell {
 
     public void fire() {
         energy--;
+        energy++;
         if (basalDendrites.isEmpty()) {
             growBasalDendrite();
+        } else {
+            int index = layer.random.nextInt(basalDendrites.size());
+            BasalDendrite basalDendrite = basalDendrites.get(index);
+            basalDendrite.grow();
         }
     }
 
 
     public void growBasalDendrite() {
-        basalDendrites.add(new BasalDendrite(this));
+        basalDendrites.add(new BasalDendrite(basalDendrites.size(), this));
     }
 
 
