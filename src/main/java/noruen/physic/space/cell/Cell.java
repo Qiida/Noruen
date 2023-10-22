@@ -6,19 +6,28 @@ import noruen.physiology.head.brain.neuron.dendrite.Dendrite;
 
 import java.util.HashMap;
 
-public class Cell {
-    public final int x;
-    public final int y;
-    public final int z;
+public class Cell extends Coordinates {
 
     public String id;
+
     private HashMap<String, Cell> cells = null;
 
     public Cell(int x, int y, int z) {
-        id = String.format("%d_%d_%d", x, y, z);
-        this.x = x;
-        this.y = y;
-        this.z = z;
+        super(x, y, z);
+        id = Cell.createID(x, y, z);
+    }
+
+    public Cell(Coordinates coordinates) {
+        super(coordinates.x, coordinates.y, coordinates.z);
+        id = Cell.createID(coordinates);
+    }
+
+    public static String createID(int x, int y, int z) {
+        return String.format("%d_%d_%d", x, y, z);
+    }
+
+    public static String createID(Coordinates coordinates) {
+        return String.format("%d_%d_%d", coordinates.x, coordinates.y, coordinates.z);
     }
 
     public void addCell(CellType cellType, Cell cell) {

@@ -1,5 +1,6 @@
 package noruen.physiology.head.brain.neuron.dendrite;
 
+import noruen.physic.space.cell.Coordinates;
 import noruen.physiology.head.brain.neuron.Neuron;
 
 public class ProximalDendrite extends Dendrite{
