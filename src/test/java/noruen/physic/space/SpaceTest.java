@@ -9,7 +9,6 @@ public class SpaceTest {
     @Test
     public void constructorTest() {
         Space space = new Space(10, 10, 4);
-        Assertions.assertTrue();
         System.out.println("Hey");
     }
 
