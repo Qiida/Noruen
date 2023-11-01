@@ -7,6 +7,7 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/*
 
 # AWS User-specific
 .idea/**/aws.xml
@@ -37,6 +38,7 @@
 # .idea/modules.xml
 # .idea/*.iml
 # .idea/modules
+# .idea
 # *.iml
 # *.ipr
 
