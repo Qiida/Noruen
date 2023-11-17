@@ -1,9 +1,16 @@
 package noruen.physic.space.cell;
 
 public class CellFactory {
-    public static Cell[][][] buildCells(int dimX, int dimY, int dimZ) {
-        final Cell[][][] cells = new Cell[dimX][dimY][dimZ];
 
+    public static Cell buildFromXYZ(int x, int y, int z) {
+        return new Cell(x, y, z);
+    }
+
+    public static Cell buildFromCoordinates(Coordinates coordinates) {
+        return new Cell(coordinates);
+    }
+    public static Cell[][][] buildCellsFromDimensions(int dimX, int dimY, int dimZ) {
+        final Cell[][][] cells = new Cell[dimX][dimY][dimZ];
         for (int x=0; x<dimX; x++) {
             for (int y=0; y<dimY; y++) {
                 for (int z=0; z<dimZ; z++) {

@@ -12,9 +12,9 @@ import java.util.Random;
 
 public class Layer extends Space {
 
-    public Random random;
+    private Random random;
 
-    private final float targetActivationLevel;
+    private float targetActivationLevel;
 
     private boolean verbose;
     public void setVerbose(boolean verbose) {
@@ -58,6 +58,23 @@ public class Layer extends Space {
             }
         }
     }
+
+    public Random getRandom() {
+        return random;
+    }
+
+    public void setRandom(Random random) {
+        this.random = random;
+    }
+
+    public float getTargetActivationLevel() {
+        return targetActivationLevel;
+    }
+
+    public void setTargetActivationLevel(float targetActivationLevel) {
+        this.targetActivationLevel = targetActivationLevel;
+    }
+
 
     public Cell getNeighbourCellInDirection(int[] direction, Cell cell) {
         int[] targetCoordinates = getTargetCoordinatesInDirection(direction, cell);

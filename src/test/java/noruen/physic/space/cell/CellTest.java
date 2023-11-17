@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 public class CellTest {
     @Test
     public void createId() {
-        Assertions.assertEquals("4_3_6", Cell.createID(4, 3, 6));
+        Assertions.assertEquals("4_3_6", Cell.createId(4, 3, 6));
     }
 
     @Test

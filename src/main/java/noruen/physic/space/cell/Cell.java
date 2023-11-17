@@ -14,20 +14,20 @@ public class Cell extends Coordinates {
 
     public Cell(int x, int y, int z) {
         super(x, y, z);
-        id = Cell.createID(x, y, z);
+        id = Cell.createId(x, y, z);
     }
 
     public Cell(Coordinates coordinates) {
         super(coordinates.x, coordinates.y, coordinates.z);
-        id = Cell.createID(coordinates);
+        id = Cell.createId(coordinates);
     }
 
-    public static String createID(int x, int y, int z) {
+    public static String createId(int x, int y, int z) {
         return String.format("%d_%d_%d", x, y, z);
     }
 
-    public static String createID(Coordinates coordinates) {
-        return String.format("%d_%d_%d", coordinates.x, coordinates.y, coordinates.z);
+    public static String createId(Coordinates coordinates) {
+        return Cell.createId(coordinates.x, coordinates.y, coordinates.z);
     }
 
     public void addCell(CellType cellType, Cell cell) {

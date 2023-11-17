@@ -4,9 +4,6 @@ package noruen.physic.space;
 import noruen.physic.space.cell.Cell;
 import noruen.physic.space.cell.CellFactory;
 
-import java.io.IOError;
-import java.security.InvalidParameterException;
-
 
 public class Space {
     public final int dimX;
@@ -23,7 +20,7 @@ public class Space {
         this.dimY = dimY;
         this.dimZ = dimZ;
 
-        cells = CellFactory.buildCells(dimX, dimY, dimZ);
+        cells = CellFactory.buildCellsFromDimensions(dimX, dimY, dimZ);
     }
 
     public Cell getCell(int x, int y, int z) {

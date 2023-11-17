@@ -22,7 +22,7 @@ public class Neuron extends Cell {
         this.id = String.format("Neuron_%d_%d_%d", this.x, this.y, this.z);
         this.layer = layer;
         this.cell = cell;
-        energy = layer.random.nextInt(100);
+        energy = layer.getRandom().nextInt(100);
     }
 
     public Neuron(Layer layer, Cell cell, int energy) {
@@ -39,7 +39,7 @@ public class Neuron extends Cell {
         if (basalDendrites.isEmpty()) {
             growBasalDendrite();
         } else {
-            int index = layer.random.nextInt(basalDendrites.size());
+            int index = layer.getRandom().nextInt(basalDendrites.size());
             BasalDendrite basalDendrite = basalDendrites.get(index);
             basalDendrite.grow();
         }

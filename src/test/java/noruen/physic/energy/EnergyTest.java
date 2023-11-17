@@ -30,7 +30,7 @@ public class EnergyTest {
     @Test
     public void addTest1() {
         Energy energy = new Energy(310, "joule");
-        Assumptions.assumeTrue(420 == energy.add(100));
+        Assumptions.assumeTrue(420 == energy.add(110));
     }
 
 }

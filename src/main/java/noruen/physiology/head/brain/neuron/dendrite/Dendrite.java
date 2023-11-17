@@ -7,14 +7,12 @@ public abstract class Dendrite extends Cell {
 
     final public Body body = new Body();
     final public Neuron neuron;
-//    final protected Layer layer;
     int energy;
 
     public Dendrite(Neuron neuron) {
         super(neuron.x, neuron.y, neuron.z);
 
         this.neuron = neuron;
-//        layer = neuron.layer;
     }
 
 
