@@ -20,7 +20,7 @@ public class LayerTest {
     public void getTotalEnergyTest() {
         Layer layer = new Layer(10, 1, 4);
         int energy = layer.getTotalEnergy();
-        System.out.println("Hello");
+        Assertions.assertTrue(energy > 0);
     }
 
     @Test
