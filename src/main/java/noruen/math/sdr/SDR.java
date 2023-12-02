@@ -8,11 +8,11 @@ public class SDR {
 
     public SDR(int size) {
         this.length = size;
-        this.bits = new int[size];
+        bits = new int[size];
     }
 
     public SDR(int[] bits) {
-        this.length = bits.length;
+        length = bits.length;
         this.bits = bits;
     }
 
@@ -40,8 +40,8 @@ public class SDR {
 
     public ArrayList<Integer> getOnBits() {
         ArrayList<Integer> onBits = new ArrayList<>();
-        for (int i = 0; i<this.length; i++) {
-            if (this.bits[i] == 1) {
+        for (int i=0; i<length; i++) {
+            if (bits[i] == 1) {
                 onBits.add(i);
             }
         }
