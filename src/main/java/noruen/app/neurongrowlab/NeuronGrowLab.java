@@ -12,6 +12,7 @@ public class NeuronGrowLab {
     public static void main(String[] args) {
 
         System.out.println("""
+                \n\n
                 ███    ██  ██████  ██████  ██    ██ ███████ ███    ██\s
                 ████   ██ ██    ██ ██   ██ ██    ██ ██      ████   ██\s
                 ██ ██  ██ ██    ██ ██████  ██    ██ █████   ██ ██  ██\s
@@ -39,10 +40,10 @@ public class NeuronGrowLab {
 
         }
 
-        //for (Neuron neuron : layer.getListOfNeurons()) {
-        //    System.out.println(neuron.id + "\n");
-        //    printDendriteGrowth(neuron);
-        //}
+        for (Neuron neuron : layer.getListOfNeurons()) {
+            System.out.println(neuron.id + "\n");
+            printDendriteGrowth(neuron);
+        }
         System.out.println("\n\nThe End.");
 
     }
@@ -51,7 +52,7 @@ public class NeuronGrowLab {
         for (BasalDendrite basalDendrite : neuron.basalDendrites) {
             for (Cell cell : basalDendrite.body.list()) {
                 int[] direction = basalDendrite.body.direction;
-                if (direction != null) System.out.printf("[%d][%d][%d]", direction[0], direction[1], direction[2]);
+                if (direction != null) System.out.printf("(%d %d %d) ", direction[0], direction[1], direction[2]);
                 System.out.println(cell.id);
             }
         }
