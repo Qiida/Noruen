@@ -49,19 +49,18 @@ public class SDRTest {
 
     @Test
     public void overlapTest() {
-        int[] bits1 = {0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0};
-        SDR sdr1 = new SDR(bits1);
-        sdr1.print();
+        SDR sdr1 = new SDR(new int[]{ 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0 });
+        SDR sdr2 = new SDR(new int[]{ 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0 });
+        SDR sdr3 = new SDR(new int[]{ 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0 });
 
-        int[] bits2 = {0, 1, 0, 0, 0, 1, 0, 0, 1, 0,0};
-        SDR sdr2 = new SDR(bits2);
-        sdr2.print();
-
-        SDR overlap = SDR.overlap(sdr1, sdr2);
-        overlap.print();
-
-        ArrayList<Integer> onBits = overlap.getOnBits();
-        Assertions.assertEquals(1, onBits.get(0));
-        Assertions.assertEquals(8, onBits.get(1));
+        SDR overlap12 = SDR.overlap(sdr1, sdr2);
+        SDR overlap13 = sdr1.overlap(sdr3);
+        ArrayList<Integer> onBits12 = overlap12.getOnBits();
+        Assertions.assertEquals(1, onBits12.get(0));
+        Assertions.assertEquals(8, onBits12.get(1));
+        ArrayList<Integer> onBits13 = overlap13.getOnBits();
+        Assertions.assertEquals(1, onBits13.get(0));
+        Assertions.assertEquals(6, onBits13.get(1));
+        Assertions.assertEquals(8, onBits13.get(2));
     }
 }
