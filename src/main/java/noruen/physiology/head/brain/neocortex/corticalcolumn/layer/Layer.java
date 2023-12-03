@@ -79,7 +79,7 @@ public class Layer extends Space {
     public Cell getNeighbourCellInDirection(int[] direction, Cell cell) {
         int[] targetCoordinates = getTargetCoordinatesInDirection(direction, cell);
         if (!isWithinBorder(targetCoordinates)) {
-            checkDirectionAndFix(direction, cell);
+            checkDirectionAndReflect(direction, cell);
             targetCoordinates = getTargetCoordinatesInDirection(direction, cell);
         }
         return getCellFromCoordinates(targetCoordinates);
@@ -93,7 +93,7 @@ public class Layer extends Space {
         return targetCoordinates;
     }
 
-    private void checkDirectionAndFix(int[] direction, Cell cell) {
+    private void checkDirectionAndReflect(int[] direction, Cell cell) {
         if ((cell.x == 0 && direction[0] == -1) || (cell.x == dimX-1 && direction[0] == 1)) {
             direction[0] *= -1;
             if (dimX == 1) {
