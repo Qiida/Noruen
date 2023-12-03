@@ -9,6 +9,15 @@ import java.util.ArrayList;
 public class SDRTest {
     @Test
     public void createAnSDRTest() {
+        System.out.println("""
+                ███    ██  ██████  ██████  ██    ██ ███████ ███    ██\s
+                ████   ██ ██    ██ ██   ██ ██    ██ ██      ████   ██\s
+                ██ ██  ██ ██    ██ ██████  ██    ██ █████   ██ ██  ██\s
+                ██  ██ ██ ██    ██ ██   ██ ██    ██ ██      ██  ██ ██\s
+                ██   ████  ██████  ██   ██  ██████  ███████ ██   ████\s
+                                                                     \s
+                                                                     \s
+                """);
         SDR sdr = new SDR(10);
         for (int bit : sdr.bits) {
             Assertions.assertEquals(0, bit);

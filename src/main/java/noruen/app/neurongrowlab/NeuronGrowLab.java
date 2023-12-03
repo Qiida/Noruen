@@ -11,12 +11,20 @@ public class NeuronGrowLab {
 
     public static void main(String[] args) {
 
-
+        System.out.println("""
+                ███    ██  ██████  ██████  ██    ██ ███████ ███    ██\s
+                ████   ██ ██    ██ ██   ██ ██    ██ ██      ████   ██\s
+                ██ ██  ██ ██    ██ ██████  ██    ██ █████   ██ ██  ██\s
+                ██  ██ ██ ██    ██ ██   ██ ██    ██ ██      ██  ██ ██\s
+                ██   ████  ██████  ██   ██  ██████  ███████ ██   ████\s
+                                                                     \s
+                                                                     \s
+                """);
         System.out.println("\n\nThis is a Lab to grow Neurons.\n\n");
 
 
         System.out.println("We create a Cortical Layer and populate it with neurons.");
-        Layer layer = new Layer(100, 4, 1, 0);
+        Layer layer = new Layer(10, 20, 10, 0);
         layer.setVerbose(false);
 
         int numberOfNeurons = layer.getNumberOfNeurons();
@@ -24,7 +32,6 @@ public class NeuronGrowLab {
 
         int numberOfIterations = 10000;
         for (int i=0; i<numberOfIterations; i++) {
-            System.out.println(i);
             ArrayList<Neuron> firingNeurons = layer.getFiringNeurons();
             for (Neuron neuron : firingNeurons) {
                 neuron.fire();
@@ -32,11 +39,11 @@ public class NeuronGrowLab {
 
         }
 
-        for (Neuron neuron : layer.getListOfNeurons()) {
-            System.out.println(neuron.id + "\n");
-            printDendriteGrowth(neuron);
-        }
-        System.out.println("The End.");
+        //for (Neuron neuron : layer.getListOfNeurons()) {
+        //    System.out.println(neuron.id + "\n");
+        //    printDendriteGrowth(neuron);
+        //}
+        System.out.println("\n\nThe End.");
 
     }
 
